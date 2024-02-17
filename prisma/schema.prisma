@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Bid {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  bidder      String   @db.VarChar(255)
+  amount      Int
+  repayAmount Int
+  deadline    DateTime
+  accepted    Boolean  @default(false)
+
+  listing   Listing? @relation(fields: [listingId], references: [id])
+  listingId Int?
+}
+
+model Listing {
+  id                 Int      @id @default(autoincrement())
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  nftContractAddress String   @db.VarChar(255)
+  nftTokenId         Int
+  nftOwner           String   @db.VarChar(255)
+  concluded          Boolean  @default(false)
+  bids               Bid[]
+}
+
+// NFT
+// TODO we can save all nft data from supported contracts in the DB for better performance
+// on each supported contract addition, would perform INFURA query and populate Nft table with values
+// Listing would reference nft from Nft table

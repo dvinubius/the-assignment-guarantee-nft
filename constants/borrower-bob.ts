@@ -1,0 +1,1 @@
+export const BORROWER_BOB = '0x807F402e39e997b62C2b15abad508Ebc6F75d1Ea';
