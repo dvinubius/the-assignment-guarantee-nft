@@ -7,7 +7,7 @@ import { SUPPORTED_NFT_CONTRACTS } from "@/constants/supported-nft-contracts";
 
 
 const getNftForLenderListingView = async (listing: Listing): Promise<Nft | undefined> => {
-  // TODO in production, handle with data from DB (nft details), initially populated via INFURA queries
+  // in production, handle with data from DB (nft details), initially populated via INFURA queries
   // if current owner of the NFT is not required for the use case, Blockchain query not needed here
   const nfts = await getBorrowerNfts(listing.nftContractAddress, listing.nftOwner);
   return nfts.find((nft) => nft.tokenId === listing.nftTokenId);

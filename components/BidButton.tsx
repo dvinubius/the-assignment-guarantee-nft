@@ -43,7 +43,11 @@ function BidButton({listingId}: {listingId: number}) {
 
   if (!connected) {
     return (
-      <Button variant="default" className='mx-auto' onClick={() => sdk?.connect()}>Connect Wallet to Bid</Button>
+      <Button variant="default" className='mx-auto'
+        onClick={() => sdk?.connect()}
+      >
+        Connect Wallet to Bid
+      </Button>
     )
   };
 
